@@ -41,9 +41,10 @@
 		['No. 51-8, Anhe Rd, Xitun District, Taichung City, 407',24.166167,120.619581],
 		['No. 142, Section 5, Taiwan Boulevard, Xitun District, Taichung City, 407',24.185221,120.591003]
       ];
+	//	function initMap start
+     function initMap() {
 		
-      function initMap() {
-		
+		//	for FCU 
 		var fcu = {lat: 24.179, lng: 120.649};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
@@ -63,45 +64,45 @@
 		marker_fcu.addListener('mouseout', function() {
 		infowindow_fcu.close();
 		});
+		//	end of FCU
 		
+		//	for POS Station and Petrol Station
+		var labels = 'PPPPPPPPOOOOOOOOOOOOO';
 		
-        var labels = 'PPPPPPPPOOOOOOOOOOOOO';
-		
-    var infowindow = new google.maps.InfoWindow();
+		var infowindow = new google.maps.InfoWindow();
 
-    var marker, i;
-
-    for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map,
-		label: labels[i % labels.length]
-      });
+		var marker, i;
 		
+		//	for-loop start
+		for (i = 0; i < locations.length; i++) {  
+			marker = new google.maps.Marker({
+			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+			map: map,
+			label: labels[i % labels.length]
+		});
 		
-      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
-        return function() {
-          infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
+		google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+			return function() {
+			infowindow.setContent(locations[i][0]);
+			infowindow.open(map, marker);
+				}
+			})(marker, i));
 	  
-	  google.maps.event.addListener(marker, 'mouseout', (function(marker, i) {
-        return function() {
-          infowindow.close();
-        }
-      })(marker, i));
+		google.maps.event.addListener(marker, 'mouseout', (function(marker, i) {
+			return function() {
+			infowindow.close();
+				}
+			})(marker, i));
 	  
-	  }
-	
-	
-	  }
+		}
+		//end of for-loop
+	}
+	//	end of function initMap
 	  
     
     </script>
 	
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-	</script>
+   
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpN6XKGK3nTPiP87DCvCJvgl3BDEhmQ0k&callback=initMap">
     </script>
