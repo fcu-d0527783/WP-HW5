@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Testing</title>
+    <style>
+      #map { 
+        height: 600px; 
+        width: 100%; 
+       } 
+    </style>
+  </head>
+  <body>
+	<h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+	
+    <script>
+		
+		var locations = [
+	 
+        ['407, Taichung City, Xitun District, 永安里西屯路三段166之80號',24.191715,120.611696],
+        ['No. 1727, Section 4, Taiwan Boulevard, Xitun District, Taichung City, 407',24.180578,120.601469],
+        ['407, Taichung City, Xitun District, 台中港路三段160號',24.184567,120.604661],
+        ['No. 10號, Gongyequ 6th Road, Xitun District, Taichung City, 407',24.170083,120.605875],
+        ['No. 60、62, Dalong Road, Xitun District, Taichung City, 40759',24.156829,120.652178],
+        ['407, Taichung City, Xitun District, 河南路2段268號',24.175569,120.649131],
+        ['No. 130號, Section 3, Liming Road, Xitun District, Taichung City, 407',24.177302,120.636965],
+        ['No. 318號, Fushun Road, Xitun District, Taichung City, 407',24.184019,120.618610],
+		['No. 187號, Section 3, Wenxin Road, Xitun District, Taichung City, 407',24.172413,120.659821],
+		['No. 211號, Section 2, Qinghai Road, Xitun District, Taichung City, 407',24.171635,120.643586],
+		['No. 1686, Section 1, Huanzhong Road, Xitun District, Taichung City, 407',24.201950,120.669496],
+		['No. 2490, Section 1, Huanzhong Road, Xitun District, Taichung City, 407',24.200694,120.655943],
+		['No. 1, Section 3, Zhongqing Road, Xitun District, Taichung City, 407',24.200455,120.655043],
+		['No. 150, Section 3, Zhongqing Road, Xitun District, Taichung City, 407',24.202100,120.653733],
+		['No. 698, Section 2, Huanzhong Road, Xitun District, Taichung City, 407',24.196401,120.644597],
+		['No. 693, Fu Ya Rd, Xitun District, Taichung City, 407',24.206694,120.629004],
+		['No. 77之3號, Section 3, Xitun Road, Xitun District, Taichung City, 407',24.181727,120.633282],
+		['No. 90之28號, Section 3, Xitun Road, Xitun District, Taichung City, 407',24.183378,120.629506],
+		['No. 1047, Section 4, Taiwan Boulevard, Xitun District, Taichung City, 407',24.182753,120.613561],
+		['No. 51-8, Anhe Rd, Xitun District, Taichung City, 407',24.166167,120.619581],
+		['No. 142, Section 5, Taiwan Boulevard, Xitun District, Taichung City, 407',24.185221,120.591003]
+      ];
+		
+      function initMap() {
+		
+		var fcu = {lat: 24.179, lng: 120.649};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: fcu
+        });
+		
+		var marker_fcu = new google.maps.Marker({ 
+          position: fcu, 
+          map: map 
+        }); 
+		
+		var infowindow_fcu = new google.maps.InfoWindow({content: "FCU"});
+		
+		marker_fcu.addListener('mouseover', function() {
+		infowindow_fcu.open(map, marker_fcu);
+		});
+		marker_fcu.addListener('mouseout', function() {
+		infowindow_fcu.close();
+		});
+		
+		
+        var labels = 'PPPPPPPPOOOOOOOOOOOOO';
+		
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+		label: labels[i % labels.length]
+      });
+		
+		
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+	  
+	  google.maps.event.addListener(marker, 'mouseout', (function(marker, i) {
+        return function() {
+          infowindow.close();
+        }
+      })(marker, i));
+	  
+	  }
+	
+	
+	  }
+	  
+    
+    </script>
+	
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+	</script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpN6XKGK3nTPiP87DCvCJvgl3BDEhmQ0k&callback=initMap">
+    </script>
+  </body>
+</html>
